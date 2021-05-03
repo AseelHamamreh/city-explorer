@@ -43,7 +43,7 @@ export class App extends Component {
         <form onSubmit={this.locationFunction}>
           <label>Where would like to explore?</label>
           <br></br>
-          <input style={{marginTop:'20px', width:'700px',height:'30px', backgroundColor:'#e2bcb7',fontSize:'30px'}} onChange={this.uptateLocation} type="text" />
+          <input placeholder="City Name" style={{marginTop:'20px', width:'700px',height:'30px', backgroundColor:'#e2bcb7',fontSize:'30px'}} onChange={this.uptateLocation} type="text" />
           <br></br>
           <Button variant="flat" size="xxl" type="submit" onClick={this.locationFunction}>
           Explore!
