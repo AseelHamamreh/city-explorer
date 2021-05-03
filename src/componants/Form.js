@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 
 export class Form extends Component {
- 
   render() {
     return (
       <div >
@@ -36,5 +35,4 @@ export class Form extends Component {
     );
   }
 }
-  
 export default Form;
