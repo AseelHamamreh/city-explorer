@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import axios from 'axios';
 // import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -21,20 +21,20 @@ export class App extends Component {
     axios.get(url);
     this.setState({
       data:myRecust.data[0],
-    })
+    });
     this.renderUpdate();
   };
   uptateLocation = (event) =>{
-      this.setState({
-        newLocation:event.target.value,
-      })
+    this.setState({
+      newLocation:event.target.value,
+    });
   }
   renderUpdate=()=>{
     this.setState({
       p1:`welcome to ${this.state.data.display_name}`,
       p2:`${this.state.data.display_name} is locatid at ${this.state.data.lat} by ${this.state.data.lon}`,
       src:`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.state.data.lat},${this.state.data.lon}&zoom=10`
-    })
+    });
   }
   render() {
     return (
@@ -68,8 +68,8 @@ export class App extends Component {
           `}
         </style>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;
