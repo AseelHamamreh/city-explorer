@@ -7,7 +7,7 @@ export class Movies extends Component {
         return(
           <div>
               <p>{d.title}</p>
-              <img src={d.myImage} alt=''/>       
+              <img src={d.image} alt=''/>       
               <p>{d.description}</p> 
           </div>
         )

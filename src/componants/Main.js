@@ -16,7 +16,9 @@ export class Main extends Component {
       expressData:'',
       show:false,
       movieExpressData:'',
-      showMovies:false
+      showMovies:false,
+      h1:'',
+      h2:''
     };
   }
   locationFunction = async (event) =>{
@@ -63,7 +65,8 @@ export class Main extends Component {
       p1:`welcome to ${this.state.data.display_name}`,
       p2:`lat: ${this.state.data.lat} & lon: ${this.state.data.lon}`,
       src:`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&q&center=${this.state.data.lat},${this.state.data.lon}&zoom=10`,
-
+      h1:'Movies:',
+      h2:'Weather'
     });
   }
   render() {
@@ -77,7 +80,9 @@ export class Main extends Component {
           p2={this.state.p2}
           src={this.state.src}
           />
-       {this.state.show ? <Weather expressArr={this.state.expressData} /> : null }
+         <h1>{this.state.h2}</h1>
+         {this.state.show ? <Weather expressArr={this.state.expressData} /> : null }
+         <h1>{this.state.h1}</h1>
        {this.state.showMovies ? <Movies expressMoviesArr={this.state.movieExpressData} /> : null }
 
       </div>
