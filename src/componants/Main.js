@@ -45,8 +45,8 @@ export class Main extends Component {
     const express =await axios.get(`${process.env.REACT_APP_SERVER_URL}/weather?lat=${this.state.data.lat}&lon=${this.state.data.lon}`);
     this.setState({
       expressData:express.data,
-        show:true
-    })
+      show:true
+    });
   }
   addingMovies = async() =>{
     console.log(this.state.newLocation);
@@ -54,8 +54,8 @@ export class Main extends Component {
     console.log(movieExpress);
     this.setState({
       movieExpressData:movieExpress.data,
-        showMovies:true
-    })
+      showMovies:true
+    });
     console.log(this.state.movieExpressData);
   }
   uptateLocation = (event) =>{
@@ -77,23 +77,23 @@ export class Main extends Component {
     return (
       <div>
         <Map locationFunction={this.locationFunction}
-        movies={this.addingMovies}
+          movies={this.addingMovies}
           uptateLocation={this.uptateLocation}
           renderUpdate={this.renderUpdate}
           p1={this.state.p1}
           p2={this.state.p2}
           src={this.state.src}
-          />
-         <h1 style={{marginTop:'20px'}}>{this.state.h2}</h1>
-         {this.state.show ? <Weather expressArr={this.state.expressData} /> : null }
-         <h1 style={{marginTop:'20px'}}>{this.state.h1}</h1>
-         {this.state.showMovies ?
-         <CardColumns >
-             <Movies
-            expressMoviesArr={this.state.movieExpressData}
+        />
+        <h1 style={{marginTop:'20px'}}>{this.state.h2}</h1>
+        {this.state.show ? <Weather expressArr={this.state.expressData} /> : null }
+        <h1 style={{marginTop:'20px'}}>{this.state.h1}</h1>
+        {this.state.showMovies ?
+          <CardColumns >
+            <Movies
+              expressMoviesArr={this.state.movieExpressData}
             />
-        </CardColumns>
-         : null }
+          </CardColumns>
+          : null }
       </div>
     );
   }
