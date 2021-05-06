@@ -22,13 +22,11 @@ export class Main extends Component {
       const url = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${this.state.newLocation}&format=json`;
       const myRecust = await axios.get(url);
       axios.get(url);
-
-      const express =await axios.get('http://localhost:3007/weather');
       this.setState({
         data:myRecust.data[0],
-        expressData:express.data,
-        show:true
       });
+      console.log(this.state.data.lat);
+      this.test();
 
       this.renderUpdate();
       console.log(this.state.expressData);
@@ -37,6 +35,14 @@ export class Main extends Component {
       alert(`${error}, Try again`);
     }
   };
+  test = async() =>{
+    const express =await axios.get(`http://localhost:6070/weather?lat=${this.state.data.lat}&lon=${this.state.data.lon}`);
+    this.setState({
+      expressData:express.data,
+        show:true
+    })
+    console.log(express.data);
+  }
   uptateLocation = (event) =>{
     this.setState({
       newLocation:event.target.value,
