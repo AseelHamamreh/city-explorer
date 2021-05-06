@@ -3,6 +3,8 @@ import Map from './Map';
 import axios from 'axios';
 import Weather from './Weather';
 import Movies from './Movies';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import CardColumns from 'react-bootstrap/CardColumns';
 
 export class Main extends Component {
   constructor(props){
@@ -65,7 +67,7 @@ export class Main extends Component {
       p1:`welcome to ${this.state.data.display_name}`,
       p2:`lat: ${this.state.data.lat} & lon: ${this.state.data.lon}`,
       src:`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&q&center=${this.state.data.lat},${this.state.data.lon}&zoom=10`,
-      h1:'Movies:',
+      h1:'Movies',
       h2:'Weather'
     });
   }
@@ -80,11 +82,16 @@ export class Main extends Component {
           p2={this.state.p2}
           src={this.state.src}
           />
-         <h1>{this.state.h2}</h1>
+         <h1 style={{marginTop:'20px'}}>{this.state.h2}</h1>
          {this.state.show ? <Weather expressArr={this.state.expressData} /> : null }
-         <h1>{this.state.h1}</h1>
-       {this.state.showMovies ? <Movies expressMoviesArr={this.state.movieExpressData} /> : null }
-
+         <h1 style={{marginTop:'20px'}}>{this.state.h1}</h1>
+         {this.state.showMovies ?
+         <CardColumns >
+             <Movies
+            expressMoviesArr={this.state.movieExpressData}
+            />
+        </CardColumns>
+         : null }
       </div>
     );
   }
