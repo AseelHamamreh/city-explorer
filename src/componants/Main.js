@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Map from './Map';
 import axios from 'axios';
 import Weather from './Weather';
+import Movies from './Movies';
 
 export class Main extends Component {
   constructor(props){
@@ -13,7 +14,9 @@ export class Main extends Component {
       p2:'',
       src:'',
       expressData:'',
-      show:false
+      show:false,
+      movieExpressData:'',
+      showMovies:false
     };
   }
   locationFunction = async (event) =>{
@@ -25,23 +28,30 @@ export class Main extends Component {
       this.setState({
         data:myRecust.data[0],
       });
-      console.log(this.state.data.lat);
-      this.test();
-
+      this.addingWeather();
+      // this.addingMovies();
       this.renderUpdate();
-      console.log(this.state.expressData);
     }
     catch(error){
       alert(`${error}, Try again`);
     }
   };
-  test = async() =>{
-    const express =await axios.get(`http://localhost:6070/weather?lat=${this.state.data.lat}&lon=${this.state.data.lon}`);
+  addingWeather = async() =>{
+    const express =await axios.get(`http://localhost:4050/weather?lat=${this.state.data.lat}&lon=${this.state.data.lon}`);
     this.setState({
       expressData:express.data,
         show:true
     })
-    console.log(express.data);
+  }
+  addingMovies = async() =>{
+    console.log(this.state.newLocation);
+    const movieExpress =await axios.get(`http://localhost:4050/movies?cityName=${this.state.newLocation}`);
+    console.log(movieExpress);
+    this.setState({
+      movieExpressData:movieExpress.data,
+        showMovies:true
+    })
+    console.log(this.state.movieExpressData);
   }
   uptateLocation = (event) =>{
     this.setState({
@@ -51,7 +61,7 @@ export class Main extends Component {
   renderUpdate=()=>{
     this.setState({
       p1:`welcome to ${this.state.data.display_name}`,
-      p2:`${this.state.data.display_name} is located at ${this.state.data.lat} by ${this.state.data.lon}`,
+      p2:`lat: ${this.state.data.lat} & lon: ${this.state.data.lon}`,
       src:`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&q&center=${this.state.data.lat},${this.state.data.lon}&zoom=10`,
 
     });
@@ -60,6 +70,7 @@ export class Main extends Component {
     return (
       <div>
         <Map locationFunction={this.locationFunction}
+        movies={this.addingMovies}
           uptateLocation={this.uptateLocation}
           renderUpdate={this.renderUpdate}
           p1={this.state.p1}
@@ -67,6 +78,7 @@ export class Main extends Component {
           src={this.state.src}
           />
        {this.state.show ? <Weather expressArr={this.state.expressData} /> : null }
+       {this.state.showMovies ? <Movies expressMoviesArr={this.state.movieExpressData} /> : null }
 
       </div>
     );

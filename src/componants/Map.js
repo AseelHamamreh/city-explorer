@@ -10,7 +10,7 @@ export class Form extends Component {
           <br></br>
           <input placeholder="City Name" style={{marginTop:'20px', width:'700px',height:'30px', backgroundColor:'#e2bcb7',fontSize:'30px'}} onChange={this.props.uptateLocation} type="text" />
           <br></br>
-          <Button variant="flat" size="xxl" type="submit" onClick={this.props.locationFunction}>
+          <Button variant="flat" size="xxl" type="submit" onClick={this.props.movies}>
           Explore!
           </Button>
         </form>
