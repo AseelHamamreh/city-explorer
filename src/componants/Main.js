@@ -27,6 +27,7 @@ export class Main extends Component {
     event.preventDefault();
     try{
       const url = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${this.state.newLocation}&format=json`;
+      console.log(process.env.REACT_APP_MAP_URL,process.env.REACT_APP_LOCATION_KEY );
       const myRecust = await axios.get(url);
       axios.get(url);
       this.setState({
@@ -41,7 +42,7 @@ export class Main extends Component {
     }
   };
   addingWeather = async() =>{
-    const express =await axios.get(`http://localhost:4050/weather?lat=${this.state.data.lat}&lon=${this.state.data.lon}`);
+    const express =await axios.get(`${process.env.REACT_APP_SERVER_URL}/weather?lat=${this.state.data.lat}&lon=${this.state.data.lon}`);
     this.setState({
       expressData:express.data,
         show:true
@@ -49,7 +50,7 @@ export class Main extends Component {
   }
   addingMovies = async() =>{
     console.log(this.state.newLocation);
-    const movieExpress =await axios.get(`http://localhost:4050/movies?cityName=${this.state.newLocation}`);
+    const movieExpress =await axios.get(`${process.env.REACT_APP_SERVER_URL}/movies?cityName=${this.state.newLocation}`);
     console.log(movieExpress);
     this.setState({
       movieExpressData:movieExpress.data,
@@ -63,12 +64,13 @@ export class Main extends Component {
     });
   }
   renderUpdate=()=>{
+    console.log(this.state.data.lon);
     this.setState({
       p1:`welcome to ${this.state.data.display_name}`,
       p2:`lat: ${this.state.data.lat} & lon: ${this.state.data.lon}`,
-      src:`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&q&center=${this.state.data.lat},${this.state.data.lon}&zoom=10`,
-      h1:'Movies',
-      h2:'Weather'
+      src:`${process.env.REACT_APP_PHOTO}?key=${process.env.REACT_APP_LOCATION_KEY}&q&center=${this.state.data.lat},${this.state.data.lon}&zoom=10`,
+      h1:'Top Movies',
+      h2:'Weather Updates'
     });
   }
   render() {
