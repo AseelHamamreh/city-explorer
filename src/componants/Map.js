@@ -14,9 +14,9 @@ export class Form extends Component {
           Explore!
           </Button>
         </form>
-        <p>{this.props.p1}</p>
-        <p>{this.props.p2}</p>
-        <img src={this.props.src} alt='' />
+        {this.props.showMap ? <p>{this.props.p1}</p> : null}
+        {this.props.showMap ? <p>{this.props.p2}</p> : null}
+        {this.props.showMap ? <img src={this.props.src} alt='' /> : null}
         <style type="text/css">
           {`
           .btn-flat {

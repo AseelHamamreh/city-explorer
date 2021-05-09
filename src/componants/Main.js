@@ -5,6 +5,7 @@ import Weather from './Weather';
 import Movies from './Movies';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CardColumns from 'react-bootstrap/CardColumns';
+import Error from './Error';
 
 export class Main extends Component {
   constructor(props){
@@ -19,8 +20,11 @@ export class Main extends Component {
       show:false,
       movieExpressData:'',
       showMovies:false,
+      showMap:true,
       h1:'',
-      h2:''
+      h2:'',
+      errorMsg:'',
+      showError:false
     };
   }
   locationFunction = async (event) =>{
@@ -31,14 +35,23 @@ export class Main extends Component {
       const myRecust = await axios.get(url);
       axios.get(url);
       this.setState({
+        showError:false,
         data:myRecust.data[0],
+        showMap:true
       });
       this.addingWeather();
       // this.addingMovies();
       this.renderUpdate();
     }
     catch(error){
-      alert(`${error}, Try again`);
+      // alert(`${error}, Try again`);
+      this.setState({
+        errorMsg:error.message,
+        show:false,
+        showMovies:false,
+        showMap:false,
+        showError:true
+      });
     }
   };
   addingWeather = async() =>{
@@ -83,10 +96,13 @@ export class Main extends Component {
           p1={this.state.p1}
           p2={this.state.p2}
           src={this.state.src}
+          showMap = {this.state.showMap}
         />
-        <h1 style={{marginTop:'20px'}}>{this.state.h2}</h1>
+        {this.state.showError ? <Error myEroor={this.state.errorMsg} /> : null }
+
+        {this.state.show ? <h1 style={{marginTop:'20px'}}>{this.state.h2}</h1> : null }
         {this.state.show ? <Weather expressArr={this.state.expressData} /> : null }
-        <h1 style={{marginTop:'20px'}}>{this.state.h1}</h1>
+        {this.state.showMovies ? <h1 style={{marginTop:'20px'}}>{this.state.h1}</h1> : null }
         {this.state.showMovies ?
           <CardColumns >
             <Movies
